@@ -61,3 +61,4 @@ class MakeAdminUser extends Command
 // اضغط Win + R واكتب:
 
 // shell:startup
+// git clone https://github.com/ahmadshoshan/medical-complex-plus.git
