@@ -9,14 +9,19 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateWaitingList extends CreateRecord
 {
     protected static string $resource = WaitingListResource::class;
-        protected function getRedirectUrl(): string
-{
-    return $this->getResource()::getUrl('index');
-}
+  protected function getRedirectUrl(): string
+    {
+        // بعد إنشاء الحالة، يروح لصفحة الطباعة
+        return route('waiting-list.print', $this->record);
+    }
+    // protected function getRedirectUrl(): string
+    // {
+    //     return $this->getResource()::getUrl('index');
+    // }
 
 
 
-  protected function mutateFormDataBeforeCreate(array $data): array
+    protected function mutateFormDataBeforeCreate(array $data): array
     {
         $amount = $data['amount'] ?? null;
 
@@ -30,10 +35,4 @@ class CreateWaitingList extends CreateRecord
 
         return $data;
     }
-
-
-
-
-
-
 }

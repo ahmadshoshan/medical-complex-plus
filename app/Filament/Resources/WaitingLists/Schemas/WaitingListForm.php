@@ -40,6 +40,10 @@ class WaitingListForm
                         // إنشاء المريض الجديد وترجيع الـ ID
                         return \App\Models\Patient::create($data)->id;
                     }),
+
+
+
+
                 // Select::make('doctor_id')
                 //     ->label('الطبيب')
                 //     ->relationship('doctor', 'name')
@@ -141,7 +145,13 @@ class WaitingListForm
                     ->visible(fn($livewire) => !$livewire->record), // يظهر فقط عند الإنشاء,
             ])
 
+
+
             ->columns(2)
             ->statePath('data');
+
+
+
     }
+
 }

@@ -31,10 +31,10 @@ class TV extends Page
 //     protected static ?string $slug = 't-v';
 // protected static ?string $routeName = 'filament.admin.pages.t-v';
 
-  public static function shouldRegisterNavigation(): bool
-    {
-        return false; // لا تظهر في القائمة الجانبية
-    }
+//   public static function shouldRegisterNavigation(): bool
+//     {
+//         return false; // لا تظهر في القائمة الجانبية
+//     }
 
 
     protected static ?int $navigationSort = 1;

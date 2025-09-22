@@ -62,3 +62,4 @@ class MakeAdminUser extends Command
 
 // shell:startup
 // git clone https://github.com/ahmadshoshan/medical-complex-plus.git
+// 0

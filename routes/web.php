@@ -23,6 +23,12 @@ Route::get('/', function () {
 //     \Filament\Http\Middleware\Authenticate::class,
 // ]);
 
+use App\Models\WaitingList;
+
+
+Route::get('/waiting-list/{record}/print', function (WaitingList $record) {
+    return view('waiting-list.print', compact('record'));
+})->name('waiting-list.print');
 
 
 

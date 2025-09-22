@@ -9,6 +9,7 @@ use App\Models\WaitingList;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
@@ -96,6 +97,8 @@ class WaitingListsTable extends Component
                     DeleteBulkAction::make(),
                 ]),
 
+
+
                 Action::make('call_next')
                     ->label(fn(WaitingList $record): string =>
                         self::check_receptionist_call($record) ? 'استدعاء التالي' : 'غير مسموح'
@@ -138,8 +141,17 @@ class WaitingListsTable extends Component
                                 $doctorSpecialty
                             ));
                         }
-                    })
+                    }),
                 // ->requiresConfirmation(),
+     // EditAction::make(),
+            Action::make('print')
+                ->label('')
+                ->icon('heroicon-o-printer')
+                ->url(fn($record) => route('waiting-list.print', $record))
+                ->openUrlInNewTab(),
+
+
+
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

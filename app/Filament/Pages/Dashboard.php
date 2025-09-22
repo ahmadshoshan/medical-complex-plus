@@ -2,6 +2,11 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\BusyDaysChart;
+use App\Filament\Widgets\DoctorCasesChart;
+use App\Filament\Widgets\PatientStatusChart;
+use App\Filament\Widgets\StatsOverview;
+use App\Filament\Widgets\TopDoctorsWeeklyChart;
 use Filament\Pages\Dashboard as BaseDashboard;
 class Dashboard extends BaseDashboard
 {
@@ -16,6 +21,24 @@ class Dashboard extends BaseDashboard
     {
         return false; // لا تظهر في القائمة الجانبية
     }
+
+
+ protected function getHeaderWidgets(): array
+    {
+        return [
+
+
+
+            StatsOverview::class,
+            BusyDaysChart::class,
+            DoctorCasesChart::class,
+            PatientStatusChart::class,
+            TopDoctorsWeeklyChart::class,
+
+
+        ];
+    }
+
 
 
 // public function getFooter(): ?\Illuminate\Contracts\View\View

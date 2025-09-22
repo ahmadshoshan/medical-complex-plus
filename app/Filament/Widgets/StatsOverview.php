@@ -2,15 +2,12 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Doctor;
-use App\Models\Patient;
-use App\Models\Room;
-use App\Models\WaitingList;
-use Clue\Redis\Protocol\Model\Request;
-use Filament\Infolists\Components\TextEntry;
+use App\Models\Expense;
+use App\Models\Revenue;
+use Carbon\Carbon;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Livewire\Attributes\On;
+
 
 class StatsOverview extends BaseWidget
 
@@ -24,75 +21,96 @@ class StatsOverview extends BaseWidget
     protected ?string $pollingInterval = null;
 
 
-    protected int $Waiting;
-    protected int $room =0;
-    protected int $patientNumber=0;
-    public function __construct()
+    protected static bool $isDiscovered = false;
+    public static function shouldRegisterNavigation(): bool
     {
-        $this->Waiting = WaitingList::where('status', 'waiting')->count();
+        return false; // مش هيظهر في النافيجيشن
     }
 
+    protected int $revenue;
+    protected int $expense;
+    protected int $revenueMonth;
+    protected int $expenseMonth;
+    protected string $monthName;
+    protected array $revenueChart;
+    protected array $expenseChart;
+
+    public function __construct()
+    {
+        // هنا هنجيب مجموع العمود amount
+        $this->revenue = Revenue::sum('amount');
+        $this->expense = Expense::sum('amount');
+        $now = Carbon::now();
+        $this->monthName = $now->translatedFormat('F Y'); // اسم الشهر الحالي (مثلاً: سبتمبر 2025)
+
+        // اجمالي الايرادات للشهر الحالي
+        $this->revenueMonth = Revenue::whereMonth('created_at', $now->month)
+            ->whereYear('created_at', $now->year)
+            ->sum('amount');
+
+        // اجمالي المصروفات للشهر الحالي
+        $this->expenseMonth = Expense::whereMonth('created_at', $now->month)
+            ->whereYear('created_at', $now->year)
+            ->sum('amount');
+        // رسم بياني يومي للإيرادات
+        $this->revenueChart = Revenue::selectRaw('DAY(created_at) as day, SUM(amount) as total')
+            ->whereMonth('created_at', $now->month)
+            ->whereYear('created_at', $now->year)
+            ->groupBy('day')
+            ->orderBy('day')
+            ->pluck('total', 'day')
+            ->toArray();
+
+        // رسم بياني يومي للمصروفات
+        $this->expenseChart = Expense::selectRaw('DAY(created_at) as day, SUM(amount) as total')
+            ->whereMonth('created_at', $now->month)
+            ->whereYear('created_at', $now->year)
+            ->groupBy('day')
+            ->orderBy('day')
+            ->pluck('total', 'day')
+            ->toArray();
+    }
 
     protected function getStats(): array
-
     {
         return [
+            Stat::make('اجمالي الايرادات', number_format($this->revenue))
+                ->descriptionIcon('heroicon-o-currency-dollar', 'before')
+                ->color('success')
+                ->dehydrated()
+                ->chart([$this->revenue, 3, 4, 5, 3, 5, 3]),
+
+            Stat::make('اجمالي المصروفات', number_format($this->expense))
+                ->color('danger')
+                ->dehydrated()
+                ->chart([$this->expense, 3, 4, 5, 3, 5, 3]),
 
 
-            Stat::make(now(),
-            '
-             الحالة رقم ' .$this->patientNumber.
-             '
-            بالغرفة    ' .$this->room.
-            ''
-            )
-                // ->value(1000)
-                ->descriptionIcon('heroicon-o-user', 'before')
-                ->description('الحالة التالية رقم ' . ($this->patientNumber + 1) . ' ')
-                ->color('success')->dehydrated()
-                ->chart([7, 3, 4, 5, 3, 5, 3]),
-            Stat::make(' الاطباء', Doctor::where('is_active', true)->count())
-                // ->value(1000)
-                ->descriptionIcon('heroicon-o-user', 'before')
-                ->description(' الاطباء المتاحه')
-                ->color('success')->dehydrated()
-                ->chart([7, 3, 4, 5, 3, 5, 3]),
-            Stat::make('حالات الانتظار',   $this->Waiting)
-                ->descriptionIcon('heroicon-o-numbered-list', 'before')
-                ->description('إجمالي حالات  الانتظار')
-                ->color('success')->dehydrated()
-                ->chart([$this->Waiting * 2, 3, 4, 5, 3, 5, 3])
-                ->url(route('filament.admin.resources.waiting-lists.index')) // أو أي رابط تريده
-                ->extraAttributes([
-                    'class' => 'cursor-pointer hover:underline', // لجعل التفاعل أوضح
-                ]),
+
+
+            Stat::make('الصافي', number_format($this->revenue - $this->expense))
+
+                ->color($this->revenue - $this->expense >= 0 ? 'success' : 'danger')
+                ->chart([$this->expense, 3, 4, 5, 3, 5, 3]),
+
+
+
+
+            Stat::make("اجمالي ايرادات {$this->monthName}", number_format($this->revenueMonth))
+                ->icon('heroicon-o-banknotes')
+                ->color('success')
+                ->chart(array_values($this->revenueChart)),
+
+            Stat::make("اجمالي مصروفات {$this->monthName}", number_format($this->expenseMonth))
+                ->icon('heroicon-o-credit-card')
+                ->color('danger')
+                ->chart(array_values($this->expenseChart)),
+
+            Stat::make("صافي {$this->monthName}", number_format($this->revenueMonth - $this->expenseMonth))
+                ->icon('heroicon-o-calculator')
+                ->color($this->revenue - $this->expense >= 0 ? 'success' : 'danger')
+                ->chart(array_values($this->revenueChart) ?: [0]),
 
         ];
     }
-
-
-    // ✅ الاستماع للحدث
-    protected $listeners = [
-        'echo:admin-stats,StatsUpdated' => 'refreshStats',
-        'echo:waiting-room,CallPatient' => 'refreshStats'
-    ];
-    #[
-        On('echo:admin-stats,StatsUpdated'),
-        On('echo:waiting-room,CallPatient')
-
-        ]
-    // 🚀 دالة التحديث
-    public function refreshStats($data)
-    {
-
-        // dd($data['roomNumber']);
-        $this->room=$data['roomNumber']??0;
-        $this->patientNumber=$data['patientNumber']??0;
-
-        $this->dispatch('refreshStats');
-    }
-    public static function canView(): bool
-{
-    return true; // السماح للجميع بالعرض
-}
 }
