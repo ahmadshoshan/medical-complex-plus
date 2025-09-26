@@ -13,7 +13,10 @@ class CreateWaitingList extends CreateRecord
     {
         // بعد إنشاء الحالة، يروح لصفحة الطباعة
         return route('waiting-list.print', $this->record);
+
+
     }
+
     // protected function getRedirectUrl(): string
     // {
     //     return $this->getResource()::getUrl('index');

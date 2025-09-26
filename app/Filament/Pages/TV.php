@@ -13,8 +13,7 @@ use App\Filament\Widgets\WaitingListWidget;
 use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class TV extends Page
 {
@@ -31,10 +30,22 @@ class TV extends Page
 //     protected static ?string $slug = 't-v';
 // protected static ?string $routeName = 'filament.admin.pages.t-v';
 
-//   public static function shouldRegisterNavigation(): bool
-//     {
-//         return false; // لا تظهر في القائمة الجانبية
-//     }
+   public static function shouldRegisterNavigation(): bool
+    {
+        $user = Auth::user();
+
+        // لو مفيش مستخدم مسجل دخول
+        if (! $user) {
+            return false;
+        }
+   if ($user->role === 'admin' || $user->role === 't-v') {
+            return true;
+        } else {
+            return false;
+        }
+        // يظهر بس لو المستخدم Admin
+        // return $user->role === 'admin'||'t_v';
+    }
 
 
     protected static ?int $navigationSort = 1;

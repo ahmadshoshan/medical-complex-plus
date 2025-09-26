@@ -24,7 +24,7 @@ class WaitingListWidget extends BaseWidget
     {
         return false; // مش هيظهر في النافيجيشن
     }
-
+    protected static ?string $pluralModelLabel = 'قوائم انتظار'; // اسم العرض في القائمة
     public function table(Table $table): Table
     {
         return $table

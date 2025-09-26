@@ -63,3 +63,18 @@ class MakeAdminUser extends Command
 // shell:startup
 // git clone https://github.com/ahmadshoshan/medical-complex-plus.git
 // 0
+
+// composer require milon/barcode
+//composer require simplesoftwareio/simple-qrcode
+
+
+
+
+// git commit -m "اضافه مشتريات ومبيعات وفواتير والعهد"
+// ارفع التعديلات للـ GitHub:
+// git push origin main
+
+
+// قبل ما تبدأ تشتغل على B، اسحب آخر نسخة:
+
+// git pull origin main
