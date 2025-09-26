@@ -48,6 +48,7 @@ class StatsDoctor extends BaseWidget
                 // جلب أول مريض جاري الكشف عند الطبيب
 
                 $currentPatient = WaitingList::where('doctor_id', $doctor->id)
+                    ->whereDate('created_at', now())
                     ->where('status', 'in_progress')->first();
                 //  dd($currentPatient);
 
@@ -85,8 +86,7 @@ class StatsDoctor extends BaseWidget
                 ->url(route('filament.admin.resources.rooms.edit', $room))
                 //  ->url(route('filament.admin.resources.waiting-lists.index')) // أو أي رابط تريده
 
-                ->icon($icon)
-                ;
+                ->icon($icon);
         }
 
         return $stats;
