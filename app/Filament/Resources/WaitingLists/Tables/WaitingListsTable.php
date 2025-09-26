@@ -74,7 +74,7 @@ class WaitingListsTable extends Component
 
 
             ])
-        ->filters([
+            ->filters([
                 \Filament\Tables\Filters\Filter::make('by_date')
                     ->label('تاريخ ')
                     ->form([
@@ -83,13 +83,13 @@ class WaitingListsTable extends Component
                             ->label('اختر التاريخ'),
                     ])
 
-                ->query(function ($query, array $data) {
-                    if ($data['created_at']) {
-                        $query->whereDate('created_at', $data['created_at'])
-                          ->with('revenue'); // ✅ تحميل العلاقة داخل الفلتر;
-                        // dd($query);
-                    }
-                })
+                    ->query(function ($query, array $data) {
+                        if ($data['created_at']) {
+                            $query->whereDate('created_at', $data['created_at'])
+                                ->with('revenue'); // ✅ تحميل العلاقة داخل الفلتر;
+                            // dd($query);
+                        }
+                    })
             ])
 
             ->recordActions([
@@ -100,11 +100,12 @@ class WaitingListsTable extends Component
 
 
                 Action::make('call_next')
-                    ->label(fn(WaitingList $record): string =>
+                    ->label(
+                        fn(WaitingList $record): string =>
                         self::check_receptionist_call($record) ? 'استدعاء التالي' : 'غير مسموح'
                     )
                     ->icon('heroicon-s-chevron-right')
-                    ->color(fn(WaitingList $record): string =>self::check_receptionist_call($record) ? 'success' : 'warning')
+                    ->color(fn(WaitingList $record): string => self::check_receptionist_call($record) ? 'success' : 'warning')
                     ->visible(fn(WaitingList $record): bool => $record->status === 'waiting')
 
 
@@ -143,12 +144,12 @@ class WaitingListsTable extends Component
                         }
                     }),
                 // ->requiresConfirmation(),
-     // EditAction::make(),
-            Action::make('print')
-                ->label('')
-                ->icon('heroicon-o-printer')
-                ->url(fn($record) => route('waiting-list.print', $record))
-                ->openUrlInNewTab(),
+                // EditAction::make(),
+                Action::make('print')
+                    ->label('')
+                    ->icon('heroicon-o-printer')
+                    ->url(fn($record) => route('waiting-list.print', $record))
+                    ->openUrlInNewTab(),
 
 
 
@@ -170,6 +171,4 @@ class WaitingListsTable extends Component
         }
         return true;
     }
-
-
 }

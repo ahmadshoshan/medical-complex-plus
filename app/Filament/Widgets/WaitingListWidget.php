@@ -30,6 +30,7 @@ class WaitingListWidget extends BaseWidget
         return $table
             ->query(
                 WaitingListsWaitingListResource::getEloquentQuery()->where('status', 'waiting')
+                ->whereDate('created_at', now())
             )
             ->defaultPaginationPageOption(5)
             // ->paginated(false) // ✅ إلغاء شريط التنقل
