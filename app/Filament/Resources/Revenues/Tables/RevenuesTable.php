@@ -22,7 +22,7 @@ class RevenuesTable
                 TextColumn::make('date')->label('التاريخ')
                     ->date()
                     ->sortable(),
-                TextColumn::make('type')->label('النوع')
+                TextColumn::make('type')->label('النوع')->sortable()
                     ->searchable(),
                 TextColumn::make('description')
                     ->label('التفاصيل')

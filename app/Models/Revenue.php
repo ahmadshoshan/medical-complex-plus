@@ -15,6 +15,7 @@ class Revenue extends Model //الايرادات
         'doctor_id',
         'waiting_lists_id',
        'donation_id', // 👈 أضفنا العمود
+       'm_id', // 👈 أضفنا العمود
     ];
 
 

@@ -21,7 +21,7 @@ class SaleForm
                     ->required()
                     ->numeric()
                     ->prefix('ج.م'),
-                DatePicker::make('sale_date')->label( 'التاريخ')
+                DatePicker::make('sale_date')->label( 'التاريخ')->default(fn() => now())
                     ->required(),
                 TextInput::make('customer')->label('العميل')
                     ->default(null),
