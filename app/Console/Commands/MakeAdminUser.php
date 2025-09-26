@@ -69,6 +69,8 @@ class MakeAdminUser extends Command
 
 
 
+// git status
+// git add .
 
 // git commit -m "اضافه مشتريات ومبيعات وفواتير والعهد"
 // ارفع التعديلات للـ GitHub:
