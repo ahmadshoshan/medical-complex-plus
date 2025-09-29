@@ -55,6 +55,9 @@ class MakeAdminUser extends Command
 
 
 //
+// rmdir public\storage
+// php artisan storage:link
+
 // php artisan storage:link
 
 
@@ -80,3 +83,6 @@ class MakeAdminUser extends Command
 // قبل ما تبدأ تشتغل على B، اسحب آخر نسخة:
 
 // git pull origin main
+
+// 33?
+

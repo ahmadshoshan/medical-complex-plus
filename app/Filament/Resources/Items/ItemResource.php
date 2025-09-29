@@ -33,10 +33,7 @@ class ItemResource extends Resource
         return ItemForm::configure($schema);
     }
 
-    public static function infolist(Schema $schema): Schema
-    {
-        return ItemInfolist::configure($schema);
-    }
+
 
     public static function table(Table $table): Table
     {

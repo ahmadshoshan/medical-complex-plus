@@ -16,15 +16,15 @@ class WaitingListWidget extends BaseWidget
 
 {
    // ✨ تغيير العنوان اللي بيظهر فوق الودجت
-    protected static ?string $heading = 'قائمة الانتظار';
+    // protected static ?string $heading = 'قائمة الانتظار';
     protected ?string $pollingInterval = null;
 
-    protected static bool $isDiscovered = false;
-    public static function shouldRegisterNavigation(): bool
-    {
-        return false; // مش هيظهر في النافيجيشن
-    }
-    protected static ?string $pluralModelLabel = 'قوائم انتظار'; // اسم العرض في القائمة
+    // protected static bool $isDiscovered = false;
+    // public static function shouldRegisterNavigation(): bool
+    // {
+    //     return false; // مش هيظهر في النافيجيشن
+    // }
+    // protected static ?string $pluralModelLabel = 'قوائم انتظار'; // اسم العرض في القائمة
     public function table(Table $table): Table
     {
         return $table
@@ -79,5 +79,9 @@ class WaitingListWidget extends BaseWidget
         return WaitingListsWaitingListResource::getEloquentQuery()
             ->where('status', 'waiting')
             ->get();
+    }
+      public static function canView(): bool
+    {
+        return true; // السماح للجميع بالعرض
     }
 }

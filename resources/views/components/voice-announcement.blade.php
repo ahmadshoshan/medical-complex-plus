@@ -41,6 +41,23 @@
 
 
 
+<script>
+window.onload = function() {
+  // حدد منتصف الشاشة
+  const x = window.innerWidth / 2;
+  const y = window.innerHeight / 2;
+
+  // اعمل Click event صناعي
+  const ev = new MouseEvent("click", {
+    bubbles: true,
+    cancelable: true,
+    clientX: x,
+    clientY: y
+  });
+
+  document.body.dispatchEvent(ev);
+};
+</script>
 
 
 
