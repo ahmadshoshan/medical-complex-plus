@@ -22,5 +22,5 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-package
-composer
+package.json
+composer.json
