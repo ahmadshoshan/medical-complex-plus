@@ -93,9 +93,7 @@ class WaitingListsTable extends Component
             ])
 
             ->recordActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+
 
 
 
@@ -154,12 +152,7 @@ class WaitingListsTable extends Component
 
 
             ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-
-            ]);
+         ;
     }
 
 
