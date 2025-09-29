@@ -17,14 +17,7 @@ export default defineConfig({
     ],
     build: {
         rollupOptions: {
-            input: {
-                voiceAnnouncement: resolve(__dirname, 'resources/js/voice-announcement.js'),
-            },
-            output: {
-                entryFileNames: 'voice-announcement.js',
-                assetFileNames: '[name].[ext]',
-                dir: 'public/build'
-            }
+  
         },
         outDir: 'public/build', // يتأكد من مكان التصدير
         emptyOutDir: false, // لتجنب حذف ملفات أخرى

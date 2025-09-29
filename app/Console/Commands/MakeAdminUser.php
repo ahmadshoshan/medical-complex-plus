@@ -55,6 +55,9 @@ class MakeAdminUser extends Command
 
 
 //
+// rmdir public\storage
+// php artisan storage:link
+
 // php artisan storage:link
 
 

@@ -103,7 +103,7 @@
 
         <!-- Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/admin/t-v" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition duration-300">
+            <a href="/tv/t-v" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition duration-300">
                 شاشة العرض
             </a>
             <a href="/admin" class="bg-blue-100 text-blue-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-200 transition duration-300">
