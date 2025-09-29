@@ -4,7 +4,7 @@
     "type": "module",
  "scripts": {
     "build": "vite build",
-    "dev": "concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve --host=192.168.1.111 --port=8000\" \"php artisan queue:listen  --timeout=0 --tries=3\" \"php artisan reverb:start --host=0.0.0.0 --port=8010 --hostname=192.168.1.111\" \"vite --host 192.168.1.111\" --names='server,queue,reverb,vite'"
+    "dev": "concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve --host=192.168.1.55 --port=8000\" \"php artisan queue:listen  --timeout=0 --tries=3\" \"php artisan reverb:start --host=0.0.0.0 --port=8010 --hostname=192.168.1.55\" \"vite --host 192.168.1.55\" --names='server,queue,reverb,vite'"
 },
 
     "devDependencies": {
