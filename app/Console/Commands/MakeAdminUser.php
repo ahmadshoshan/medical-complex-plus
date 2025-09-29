@@ -84,5 +84,17 @@ class MakeAdminUser extends Command
 
 // git pull origin main
 
-// 33?
+
+
+// 2- الاحتفاظ بالملف محليًا فقط (skip worktree)
+
+// لو عايز تخلي الملف موجود في المستودع (repo) لكن عندك محليًا ما يتأثرش بالـ pull:
+
+// git update-index --skip-worktree package.json
+// git update-index --skip-worktree composer.json
+
+
+// 🔁 ولو في أي وقت حبيت ترجع تخليه يتأثر:
+
+// git update-index --no-skip-worktree package.json
 
