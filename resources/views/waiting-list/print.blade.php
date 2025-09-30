@@ -72,11 +72,11 @@
             {!! SimpleSoftwareIO\QrCode\Facades\QrCode::size(120)->generate((string) $record->queue_number) !!}
             <!-- <small>{{ $record->queue_number }}</small> -->
         </div>
-        <h2>مجمع عيادات ابوغنيمة</h2>
+        <h2> عيادات ابوغنيمة التخصصية</h2>
         <h2>01097722496</h2>
         <h3>تذكرة الانتظار</h3>
         <hr>
-        <p><strong>رقم:</strong> {{ $record->queue_number }}</p>
+        <h1><strong>رقم:</strong> {{ $record->queue_number }}</h1>
         <hr>
         <p><strong>الاسم:</strong> {{ $record->patient?->name }}</p>
         <p><strong>الطبيب:</strong> {{ $record->doctor?->name }}</p>

@@ -41,5 +41,6 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Doctor::observe(\App\Observers\DoctorObserver::class);
         \App\Models\Purchase::observe(\App\Observers\PurchaseObserver::class);
         \App\Models\Sale::observe(\App\Observers\SaleObserver::class);
+        \App\Models\Room::observe(\App\Observers\RoomObserver::class);
     }
 }

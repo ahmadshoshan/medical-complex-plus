@@ -128,7 +128,7 @@ class WaitingListsTable extends Component
 
                             $patientNumber = $record->queue_number ?? 0;
                             $roomNumber = $record->room->room_number ?? 0;
-                            $doctorName = $record->doctor->name ?? '';
+                            $doctorName = $record->patient->name ?? '';
                             $doctorSpecialty = $record->doctor->specialty ?? '';
 
 

@@ -198,7 +198,7 @@ window.onload = function() {
                 setTimeout(() => {
 
                     const message =
-                        `الحالة رقم ${e.patientNumber}
+                        `الحالة رقم ${e.patientNumber} ${e.doctorName}
                     تتوجه إلى الغرفة رقم ${e.roomNumber}
 
                     `;

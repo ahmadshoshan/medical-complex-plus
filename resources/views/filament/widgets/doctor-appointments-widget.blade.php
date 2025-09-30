@@ -1,7 +1,7 @@
 
 <x-filament-widgets::widget>
 
-        <div class="relative bg-white rounded-xl shadow p-4 overflow-hidden">
+        <div class="relative bg-white rounded-xl shadow p-4 overflow-hidden ">
             <!-- <h2 class='text-lg font-bold mb-3'>⏰ مواعيد الأطباء</h2> -->
 
             <!-- الشريط المتحرك -->
@@ -21,6 +21,12 @@
 
 
     <style>
+        .marquee-content span {
+    font-size: 30px; /* أو 20px, 22px حسب اللي يعجبك */
+}
+.marquee  {
+    margin-top: -10px; /* ارفعها 10px لفوق */
+}
         .marquee {
             position: relative;
             width: 100%;
