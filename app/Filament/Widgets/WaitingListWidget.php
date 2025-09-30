@@ -19,7 +19,8 @@ class WaitingListWidget extends BaseWidget
     // protected static ?string $heading = 'قائمة الانتظار';
     protected ?string $pollingInterval = null;
 
-    // protected static bool $isDiscovered = false;
+    protected static bool $isDiscovered = false;
+
     // public static function shouldRegisterNavigation(): bool
     // {
     //     return false; // مش هيظهر في النافيجيشن
