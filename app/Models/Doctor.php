@@ -32,7 +32,7 @@ class Doctor extends Model
      * علاقة "ينتمي إلى" مع المستخدم
      * كل طبيب هو مستخدم واحد
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

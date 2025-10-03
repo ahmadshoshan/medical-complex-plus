@@ -31,14 +31,14 @@ class DoctorForm
                     )
                     ->searchable()
                     ->preload()
-                    // ->required()
+                
                     ->createOptionForm([ // لإضافة مستخدم جديد مباشرة من هنا
                         TextInput::make('name')
-                            ->required()->label('اسم')
-                            ->default(function ($livewire) {
-                                // $livewire هنا هو المكون الرئيسي (مثلاً CreateWaitingList أو EditWaitingList)
-                                return $livewire->mountedRecord?->name ?? $livewire->form->getState()['name'] ?? null;
-                            }),
+                            ->required()->label('اسم'),
+                            // ->default(function ($livewire) {
+                            //     // $livewire هنا هو المكون الرئيسي (مثلاً CreateWaitingList أو EditWaitingList)
+                            //     return $livewire->mountedRecord?->name ?? $livewire->form->getState()['name'] ?? null;
+                            // }),
                         TextInput::make('username')->required()->label('اسم المستخدم')->unique(User::class, 'username'),
                         TextInput::make('email')->email()->required()->unique(User::class, 'email')->label('البريد الاكتروني'),
                         TextInput::make('password')

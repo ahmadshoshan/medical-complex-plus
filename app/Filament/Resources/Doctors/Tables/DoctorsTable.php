@@ -18,9 +18,11 @@ class DoctorsTable
 
             ->defaultPaginationPageOption(10) // ✅ عرض 10 بس في الصفحة
             ->columns([
+                TextColumn::make('user_id') ->label('user_id')
+                    ->searchable(),
                 TextColumn::make('name') ->label('الاسم')
                     ->searchable(),
-                TextColumn::make('user.name')->label('اسم المستخدم ')
+                TextColumn::make('user.username')->label('اسم المستخدم ')
                     ->searchable(),
                 TextColumn::make('specialty')->label('التخصص')
                     ->searchable(),
