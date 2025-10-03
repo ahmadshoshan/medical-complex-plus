@@ -17,6 +17,12 @@ class PatientForm
                 TextInput::make('name')
                 ->label('الاسم')
                     ->required(),
+                      TextInput::make('national_id') // ✅ الرقم القومي
+                    ->label('الرقم القومي')
+                    ->numeric()
+                    ->minLength(14)
+                    ->maxLength(14)
+                    ->required(),
                 TextInput::make('phone')
                   ->label('الهاتف')
                     // ->required()
@@ -25,11 +31,11 @@ class PatientForm
                  ->label('تاريخ الميلاد')
                     // ->required()
                     ,
-                // Select::make('gender')
-                //  ->label('النوع')
-                //     ->options(['male' => 'ذكر', 'female' => 'أنثى'])
-                //     // ->required()
-                //     ,
+                Select::make('gender')
+                 ->label('النوع')
+                    ->options(['male' => 'ذكر', 'female' => 'أنثى'])
+                   
+                    ,
                 Textarea::make('address')
                  ->label('العنوان')
                     ->default(null)

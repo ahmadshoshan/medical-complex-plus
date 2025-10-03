@@ -10,8 +10,9 @@ class Patient extends Model
         'name',
         'Patien',
         'phone',
+        'national_id',
         'date_of_birth',
-        // 'gender',
+        'gender',
         'address',
         'medical_history',
 

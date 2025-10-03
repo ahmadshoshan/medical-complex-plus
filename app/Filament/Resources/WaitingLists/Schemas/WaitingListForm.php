@@ -29,6 +29,16 @@ class WaitingListForm
                         TextInput::make('name')
                             ->label('الاسم')
                             ->required(),
+                                    TextInput::make('national_id') // ✅ الرقم القومي
+                    ->label('الرقم القومي')
+                    ->numeric()
+                    ->minLength(14)
+                    ->maxLength(14),
+                      Select::make('gender')
+                 ->label('النوع')
+                    ->options(['male' => 'ذكر', 'female' => 'أنثى'])
+                   
+                    ,
                         TextInput::make('phone')
                             ->label('رقم الهاتف')
                             ->tel(),
