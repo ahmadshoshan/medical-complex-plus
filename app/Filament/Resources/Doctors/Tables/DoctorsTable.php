@@ -14,23 +14,40 @@ class DoctorsTable
 {
     public static function configure(Table $table): Table
     {
+
         return $table
 
             ->defaultPaginationPageOption(10) // ✅ عرض 10 بس في الصفحة
+
+         
+
             ->columns([
-                TextColumn::make('user_id') ->label('user_id')
+
+
+
+
+                TextColumn::make('name')->label('الاسم')
                     ->searchable(),
-                TextColumn::make('name') ->label('الاسم')
+
+                TextColumn::make('user.username')
+                    ->label('اسم المستخدم') // ✅ عرض اسم المستخدم من جدول users
+                    ->formatStateUsing(fn($state, $record) => $record->user?->username ?? '—')
+                    ->sortable()
                     ->searchable(),
-                TextColumn::make('user.username')->label('اسم المستخدم ')
-                    ->searchable(),
+
+
+
+
+
+
+
+
                 TextColumn::make('specialty')->label('التخصص')
                     ->searchable(),
-                TextColumn::make('phone')->label('الهاتف')
-,
+                TextColumn::make('phone')->label('الهاتف'),
                 IconColumn::make('is_active')->label('نشط')
                     ->boolean(),
-                    TextColumn::make('bio')->label('نبذة تعريفية')
+                TextColumn::make('bio')->label('نبذة تعريفية')
                     ->toggleable(isToggledHiddenByDefault: true),
                 //     TextColumn::make('created_at')
                 //         ->dateTime()

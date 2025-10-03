@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources\Doctors\Schemas;
 
+use App\Models\Doctor;
 use App\Models\User;
-use App\Models\WaitingList;
+
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -16,6 +17,8 @@ class DoctorForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+        
+
             ->components([
                 TextInput::make('name')
                     ->label('الاسم')
@@ -31,14 +34,14 @@ class DoctorForm
                     )
                     ->searchable()
                     ->preload()
-                
+
                     ->createOptionForm([ // لإضافة مستخدم جديد مباشرة من هنا
                         TextInput::make('name')
                             ->required()->label('اسم'),
-                            // ->default(function ($livewire) {
-                            //     // $livewire هنا هو المكون الرئيسي (مثلاً CreateWaitingList أو EditWaitingList)
-                            //     return $livewire->mountedRecord?->name ?? $livewire->form->getState()['name'] ?? null;
-                            // }),
+                        // ->default(function ($livewire) {
+                        //     // $livewire هنا هو المكون الرئيسي (مثلاً CreateWaitingList أو EditWaitingList)
+                        //     return $livewire->mountedRecord?->name ?? $livewire->form->getState()['name'] ?? null;
+                        // }),
                         TextInput::make('username')->required()->label('اسم المستخدم')->unique(User::class, 'username'),
                         TextInput::make('email')->email()->required()->unique(User::class, 'email')->label('البريد الاكتروني'),
                         TextInput::make('password')

@@ -64,8 +64,8 @@ class DoctorResource extends Resource
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
         return parent::getEloquentQuery()
-            ->select(['id', 'name',  'specialty',  'phone',  'is_active',  'bio'])
-            ->with(['user:id,name'])
-            ->limit(5); // عرض 5 فقط;
+            ->select(['id', 'name','user_id',  'specialty',  'phone',  'is_active',  'bio'])
+            // ->with(['user:id,name'])
+            ->limit(10); // عرض 5 فقط;
     }
 }
