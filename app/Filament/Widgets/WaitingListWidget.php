@@ -16,16 +16,13 @@ class WaitingListWidget extends BaseWidget
 
 {
    // ✨ تغيير العنوان اللي بيظهر فوق الودجت
-    // protected static ?string $heading = 'قائمة الانتظار';
+    protected static ?string $heading = 'قائمة الانتظار';
     protected ?string $pollingInterval = null;
 
     protected static bool $isDiscovered = false;
 
-    // public static function shouldRegisterNavigation(): bool
-    // {
-    //     return false; // مش هيظهر في النافيجيشن
-    // }
-    // protected static ?string $pluralModelLabel = 'قوائم انتظار'; // اسم العرض في القائمة
+    protected static ?string $pluralModelLabel = 'قائمة الانتظار';
+
     public function table(Table $table): Table
     {
         return $table
@@ -33,9 +30,11 @@ class WaitingListWidget extends BaseWidget
                 WaitingListsWaitingListResource::getEloquentQuery()->where('status', 'waiting')
                 ->whereDate('created_at', now())
             )
-            ->defaultPaginationPageOption(5)
+            ->defaultPaginationPageOption(7)
             // ->paginated(false) // ✅ إلغاء شريط التنقل
              ->heading('') // ✅ إلغاء العنوان العلوي
+             ->emptyStateHeading('لا توجد بيانات في قائمة الانتظار')
+
             ->columns([
                 Tables\Columns\TextColumn::make('queue_number')->label('رقم الحالة'),
                 // Tables\Columns\TextColumn::make('patient.name')->label('الاسم'),

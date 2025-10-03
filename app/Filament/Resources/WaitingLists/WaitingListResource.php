@@ -25,12 +25,7 @@ class WaitingListResource extends Resource
     protected static ?string $modelLabel = ' حالة';
     // تسمية نموذج المورد بصيغة الجمع
     protected static ?string $pluralModelLabel = 'قائمة الانتظار';
-    // public static function getNavigationBadge(): ?string
-    // {
-
-    //     return static::getModel()::where('status', 'waiting')->count();
-    //     // return static::getModel()::count();
-    // }
+  
     protected static ?string $recordTitleAttribute = 'patient_id';
 
     public static function form(Schema $schema): Schema
