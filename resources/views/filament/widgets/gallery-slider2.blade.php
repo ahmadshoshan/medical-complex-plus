@@ -1,6 +1,6 @@
 
 <x-filament-widgets::widget>
-    <div style="position: relative; width: 100%; height: 180px; overflow: hidden; border-radius: 0.75rem; background: #000;">
+    <div style="position: relative; width: 110%; height: 250px; overflow: hidden; border-radius: 0.75rem; background: #000;">
         <div
             x-data="{ slides: {{ Js::from($this->getRecords()) }} }"
             class="absolute top-0 left-0 flex gap-6 animate-marquee"
