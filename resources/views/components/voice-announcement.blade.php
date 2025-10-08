@@ -199,12 +199,12 @@ window.onload = function() {
 
                     const message =
                         `الحالة رقم ${e.patientNumber} ${e.doctorName}
-                    تتوجه إلى الغرفة رقم ${e.roomNumber}
+                    تتوجه إلى عيادة رقم ${e.roomNumber}
 
                     `;
                     const message1 =
                         `الحالة رقم ${e.patientNumber}
-                    تتوجه إلى الغرفة رقم ${e.roomNumber}
+                    تتوجه إلى عيادة رقم ${e.roomNumber}
                       عيادة ${e.doctorSpecialty}
                         دكتر${e.doctorName}
                     `;
@@ -226,6 +226,7 @@ window.onload = function() {
                         if (arabicVoice) {
                             utterance.voice = arabicVoice;
                             console.log('🔊 سيتم استخدام الصوت:', arabicVoice.name);
+                            
                         } else {
                             console.warn('⚠️ لم يتم العثور على صوت عربي، سيتم استخدام الصوت الافتراضي');
                         }
@@ -235,21 +236,21 @@ window.onload = function() {
                             window.speechSynthesis.cancel();
                         }
 
-                        // // window.speechSynthesis.speak(utterance);
-                        // // بعد انتهاء الصوت الأول، نشغل الصوت الثاني
-                        // utterance.onend = function() {
-                        //     console.log("✅ انتهى الصوت الأول");
+                        // window.speechSynthesis.speak(utterance);
+                        // بعد انتهاء الصوت الأول، نشغل الصوت الثاني
+                        utterance.onend = function() {
+                            console.log("✅ انتهى الصوت الأول");
 
-                        //     if (navigator.onLine) {
-                        //         console.log("🌐 متصل بالإنترنت، تشغيل الصوت الثاني...");
-                        //         const audio = new Audio(
-                        //             `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
-                        //         );
-                        //         audio.play().catch(err => console.error("⚠️ خطأ في تشغيل الصوت:", err));
-                        //     } else {
-                        //         console.warn("🚫 لا يوجد اتصال بالإنترنت، تم تجاهل تشغيل الصوت الثاني");
-                        //     }
-                        // };
+                            if (navigator.onLine) {
+                                console.log("🌐 متصل بالإنترنت، تشغيل الصوت الثاني...");
+                                const audio = new Audio(
+                                    `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
+                                );
+                                audio.play().catch(err => console.error("⚠️ خطأ في تشغيل الصوت:", err));
+                            } else {
+                                console.warn("🚫 لا يوجد اتصال بالإنترنت، تم تجاهل تشغيل الصوت الثاني");
+                            }
+                        };
 
 
                         // تشغيل الصوت الأول

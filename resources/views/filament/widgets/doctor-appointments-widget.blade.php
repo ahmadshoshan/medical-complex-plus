@@ -37,7 +37,7 @@
         .marquee-content {
             display: inline-block;
             /* padding-left: 100%; يبدأ من بره */
-            animation: marquee 25s linear infinite;
+            animation: marquee 70s linear infinite;
         }
 
         @keyframes marquee {

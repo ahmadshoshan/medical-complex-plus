@@ -2,7 +2,7 @@
     <div x-data
         x-on:refreshStats.window="$wire.$refresh()"
 
-        style="position: relative; width: 100%; height: 330px; overflow: hidden; border-radius: 0.75rem;">
+        style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 0.75rem;">
 
 
         <!-- ضمن الـ widget view لديك -->
