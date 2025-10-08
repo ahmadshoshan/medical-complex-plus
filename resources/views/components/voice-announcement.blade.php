@@ -198,7 +198,7 @@ window.onload = function() {
                 setTimeout(() => {
 
                     const message =
-                        `الحالة رقم ${e.patientNumber} ${e.doctorName}
+                        `الحالة رقم ${e.patientNumber}' ${e.doctorName}'
                     تتوجه إلى عيادة رقم ${e.roomNumber}
 
                     `;
@@ -209,6 +209,7 @@ window.onload = function() {
                         دكتر${e.doctorName}
                     `;
                     // الطريقة 1: محاولة استخدام Web Speech API
+                    // if ('speechSynthesis' in window) {
                     if ('speechSynthesis' in window) {
                         const utterance = new SpeechSynthesisUtterance(message);
                         utterance.lang = 'ar-EG';
@@ -231,12 +232,9 @@ window.onload = function() {
                             console.warn('⚠️ لم يتم العثور على صوت عربي، سيتم استخدام الصوت الافتراضي');
                         }
 
-                        // تأكد من عدم تشغيل أكثر من صوت
-                        if (window.speechSynthesis.speaking) {
-                            window.speechSynthesis.cancel();
-                        }
+                    
 
-                        // window.speechSynthesis.speak(utterance);
+                        window.speechSynthesis.speak(utterance);
                         // بعد انتهاء الصوت الأول، نشغل الصوت الثاني
                         utterance.onend = function() {
                             console.log("✅ انتهى الصوت الأول");
@@ -251,7 +249,10 @@ window.onload = function() {
                                 console.warn("🚫 لا يوجد اتصال بالإنترنت، تم تجاهل تشغيل الصوت الثاني");
                             }
                         };
-
+    // تأكد من عدم تشغيل أكثر من صوت
+                        if (window.speechSynthesis.speaking) {
+                            window.speechSynthesis.cancel();
+                        }
 
                         // تشغيل الصوت الأول
                         window.speechSynthesis.speak(utterance);
