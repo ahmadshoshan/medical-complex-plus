@@ -37,7 +37,7 @@ class WaitingListForm
                       Select::make('gender')
                  ->label('النوع')
                     ->options(['male' => 'ذكر', 'female' => 'أنثى'])
-                   
+
                     ,
                         TextInput::make('phone')
                             ->label('رقم الهاتف')
@@ -125,7 +125,7 @@ class WaitingListForm
                         // return  $lasrRecord ? $lasrRecord->queue_number + 1 : 1;
 
                         $today = now()->startOfDay(); // بداية اليوم
-                        $lastRecordToday = \App\Models\WaitingList::query()
+                        $lastRecordToday = WaitingList::query()
                             ->whereDate('created_at', $today)
                             ->orderByDesc('queue_number')
                             ->first();

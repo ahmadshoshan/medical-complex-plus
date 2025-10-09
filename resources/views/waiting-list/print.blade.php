@@ -79,9 +79,11 @@
         <h1><strong>رقم:</strong> {{ $record->queue_number }}</h1>
         <hr>
         <p><strong>الاسم:</strong> {{ $record->patient?->name }}</p>
+        <p><strong>المبلغ المدفوغ:</strong> {{ $record->revenue?-> amount}}</p>
+
         <p><strong>الطبيب:</strong> {{ $record->doctor?->name }}</p>
         <p><strong>التخصص:</strong> {{ $record->doctor?->specialty ?? '-' }}</p>
-        <p><strong>الغرفة:</strong> {{ $record->room?->room_number }}</p>
+        <p><strong>العيادةرقم:</strong> {{ $record->room?->room_number }}</p>
         <p><strong>الوقت:</strong> {{ $record->arrival_time?->format('h:i A d-m-Y') }}</p>
         <hr>
         <p>شكراً لزيارتكم</p>
