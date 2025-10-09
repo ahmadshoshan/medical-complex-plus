@@ -29,16 +29,14 @@ class WaitingListForm
                         TextInput::make('name')
                             ->label('الاسم')
                             ->required(),
-                                    TextInput::make('national_id') // ✅ الرقم القومي
-                    ->label('الرقم القومي')
-                    ->numeric()
-                    ->minLength(14)
-                    ->maxLength(14),
-                      Select::make('gender')
-                 ->label('النوع')
-                    ->options(['male' => 'ذكر', 'female' => 'أنثى'])
-
-                    ,
+                        TextInput::make('national_id') // ✅ الرقم القومي
+                            ->label('الرقم القومي')
+                            ->numeric()
+                            ->minLength(14)
+                            ->maxLength(14),
+                        Select::make('gender')
+                            ->label('النوع')
+                            ->options(['male' => 'ذكر', 'female' => 'أنثى']),
                         TextInput::make('phone')
                             ->label('رقم الهاتف')
                             ->tel(),
@@ -87,14 +85,26 @@ class WaitingListForm
                     ->reactive() // مهم: لتفعيل afterStateUpdated
                     ->afterStateUpdated(function ($state, callable $set, $get) {
                         // استرجاع الغرفة المرتبطة بالطبيب
-                        $doctor = Doctor::find($state);
-
-
+                        $doctor  = Doctor::find($state);
                         if ($doctor && $doctor->room) {
                             // dd($doctor->room->room_number,$state);
                             $set('room_id', $doctor->room->id);
-
                         }
+
+                          // 🟢 تحديث رقم الانتظار تلقائيًا للطبيب المحدد
+        if ($state) {
+            $today = now()->startOfDay();
+            $lastRecordToday =WaitingList::query()
+                ->where('doctor_id', $state)
+                ->whereDate('created_at', $today)
+                ->orderByDesc('queue_number')
+                ->first();
+
+            $nextQueue = $lastRecordToday ? $lastRecordToday->queue_number + 1 : 1;
+            $set('queue_number', $nextQueue);
+        } else {
+            $set('queue_number', 1);
+        }
                     })
                     ->live(), // أو reactive() يكفي، لكن live() أوضح في الإصدارات الحديثة
 
@@ -102,7 +112,7 @@ class WaitingListForm
                     ->label('الغرفة')
                     ->relationship('room', 'room_number')
                     ->preload()
-
+                    ->searchable()
                     ->required()
                     ->disabled() // لا يمكن تغييره يدويًا
                     ->dehydrated(true) // لحفظ القيمة حتى لو كان الحقل معطلًا
@@ -118,14 +128,21 @@ class WaitingListForm
                     ->label('رقم الانتظار')
                     ->required()
                     ->numeric()
-
+ ->reactive()
                     ->minValue(1)
-                    ->default(function () {
+                    ->default(function (callable $get) {
                         // $lasrRecord = WaitingList::query()->latest('queue_number')->first();
                         // return  $lasrRecord ? $lasrRecord->queue_number + 1 : 1;
 
+                        $doctorId = $get('doctor_id'); // الحصول على الطبيب المختار
+                        if (!$doctorId) {
+                            return 1; // في حال لسه الطبيب ما اختارش
+                        }
+
                         $today = now()->startOfDay(); // بداية اليوم
+                        // جلب آخر رقم انتظار لنفس الطبيب في نفس اليوم
                         $lastRecordToday = WaitingList::query()
+                            ->where('doctor_id', $doctorId)
                             ->whereDate('created_at', $today)
                             ->orderByDesc('queue_number')
                             ->first();
@@ -159,9 +176,5 @@ class WaitingListForm
 
             ->columns(2)
             ->statePath('data');
-
-
-
     }
-
 }
