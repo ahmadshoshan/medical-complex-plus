@@ -35,20 +35,56 @@ class WaitingListsTable extends Component
 
 
                     ->color(function ($record) {
-                        return optional($record->revenue)->amount == 0 ? 'danger' : 'secondary';
-                    }),
+    return match (optional($record)->status) {
+        'waiting' => 'secondary',     // في الانتظار
+        'in_progress' => 'info',    // جاري الكشف
+        'completed' => 'success',   // مكتمل
+        'canceled' => 'danger',     // ملغي
+        default => 'secondary',     // أي حالة غير متوقعة
+    };
+})
+
+
+                    ,
                 TextColumn::make('patient.name')->label('الاسم')->sortable()->searchable()
-                      ->color(function ($record) {
-                        return optional($record->revenue)->amount == 0 ? 'danger' : 'secondary';
-                    }),
+                    ->color(function ($record) {
+    return match (optional($record)->status) {
+        'waiting' => 'secondary',     // في الانتظار
+        'in_progress' => 'info',    // جاري الكشف
+        'completed' => 'success',   // مكتمل
+        'canceled' => 'danger',     // ملغي
+        default => 'secondary',     // أي حالة غير متوقعة
+    };
+})
+
+
+                    ,
                 TextColumn::make('patient.phone')->label('الهاتف')->sortable()->searchable()
-                      ->color(function ($record) {
-                        return optional($record->revenue)->amount == 0 ? 'danger' : 'secondary';
-                    }),
+                    ->color(function ($record) {
+    return match (optional($record)->status) {
+        'waiting' => 'secondary',     // في الانتظار
+        'in_progress' => 'info',    // جاري الكشف
+        'completed' => 'success',   // مكتمل
+        'canceled' => 'danger',     // ملغي
+        default => 'secondary',     // أي حالة غير متوقعة
+    };
+})
+
+
+                    ,
                 TextColumn::make('doctor.name')->label('الطبيب')->sortable()
-                      ->color(function ($record) {
-                        return optional($record->revenue)->amount == 0 ? 'danger' : 'secondary';
-                    }),
+                    ->color(function ($record) {
+    return match (optional($record)->status) {
+        'waiting' => 'secondary',     // في الانتظار
+        'in_progress' => 'info',    // جاري الكشف
+        'completed' => 'success',   // مكتمل
+        'canceled' => 'danger',     // ملغي
+        default => 'secondary',     // أي حالة غير متوقعة
+    };
+})
+
+
+                    ,
                 TextColumn::make('room.room_number')
                     ->label('الغرفة')
                     ->sortable()
@@ -88,9 +124,18 @@ class WaitingListsTable extends Component
                 TextColumn::make('arrival_time')
                     ->label('وقت الوصول')
                     ->time('i h A')
-                        ->color(function ($record) {
-                        return optional($record->revenue)->amount == 0 ? 'danger' : 'secondary';
-                    }),
+                    ->color(function ($record) {
+    return match (optional($record)->status) {
+        'waiting' => 'secondary',     // في الانتظار
+        'in_progress' => 'info',    // جاري الكشف
+        'completed' => 'success',   // مكتمل
+        'canceled' => 'danger',     // ملغي
+        default => 'secondary',     // أي حالة غير متوقعة
+    };
+})
+
+
+                    ,
                 TextColumn::make('revenue.amount')
                     ->label('المبلغ')
                     ->numeric()
@@ -181,7 +226,7 @@ class WaitingListsTable extends Component
                     ->label('')
                     ->icon('heroicon-o-printer')
                     ->url(fn($record) => route('waiting-list.print', $record))
-                       ->visible(fn($record) => optional($record->revenue)->amount > 0),
+                       ->visible(fn($record) => optional($record)->status=== 'waiting'),
                     // ->openUrlInNewTab()
 
 
