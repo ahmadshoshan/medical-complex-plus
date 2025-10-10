@@ -198,7 +198,7 @@ window.onload = function() {
                 setTimeout(() => {
 
                     const message =
-                        `الحالة رقم ${e.patientNumber}' ${e.doctorName}'
+                        `الحالة رقم ${e.patientNumber}   ${e.doctorName}
                     تتوجه إلى عيادة رقم ${e.roomNumber}
 
                     `;
@@ -232,6 +232,7 @@ window.onload = function() {
                             console.warn('⚠️ لم يتم العثور على صوت عربي، سيتم استخدام الصوت الافتراضي');
                         }
 
+
                     
 
                         window.speechSynthesis.speak(utterance);
@@ -241,10 +242,14 @@ window.onload = function() {
 
                             if (navigator.onLine) {
                                 console.log("🌐 متصل بالإنترنت، تشغيل الصوت الثاني...");
-                                const audio = new Audio(
-                                    `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
-                                );
-                                audio.play().catch(err => console.error("⚠️ خطأ في تشغيل الصوت:", err));
+                                // const audio = new Audio(
+                                //     `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
+                                // );
+                                // audio.play().catch(err => console.error("⚠️ خطأ في تشغيل الصوت:", err));
+  console.log("✅ انتهى الصوت الأول");
+  const audio = new Audio(`/tts?text=${encodeURIComponent(message)}`);
+audio.play();
+
                             } else {
                                 console.warn("🚫 لا يوجد اتصال بالإنترنت، تم تجاهل تشغيل الصوت الثاني");
                             }
