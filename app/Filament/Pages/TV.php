@@ -27,10 +27,10 @@ class TV extends Page
     // 👇 هنا بنديها slug مخصص
     // وبالتالي Laravel  بيولّد Route باسم
     // filament.admin.pages.t-v.
-//     protected static ?string $slug = 't-v';
-// protected static ?string $routeName = 'filament.admin.pages.t-v';
+    //     protected static ?string $slug = 't-v';
+    // protected static ?string $routeName = 'filament.admin.pages.t-v';
 
-   public static function shouldRegisterNavigation(): bool
+    public static function shouldRegisterNavigation(): bool
     {
         $user = Auth::user();
 
@@ -38,7 +38,7 @@ class TV extends Page
         if (! $user) {
             return false;
         }
-   if ($user->role === 'admin' || $user->role === 't-v') {
+        if ($user->role === 'admin' || $user->role === 't-v') {
             return true;
         } else {
             return false;
@@ -85,13 +85,10 @@ class TV extends Page
 
             WaitingListWidget::class,
             //   ImagesSliderWidget::class, // ✅ إضافة السلايدر::class,
-            GallerySlider::class, // ✅ إضافة السلايدر::class,
+            // GallerySlider::class, // ✅ إضافة السلايدر::class,
             GallerySlider2::class, // ✅ إضافة السلايدر::class,
 
 
         ];
     }
-
-
-
 }
