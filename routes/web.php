@@ -43,3 +43,15 @@ Route::get('/tts', function (Illuminate\Http\Request $r) {
     }, 200, ['Content-Type' => 'audio/mpeg']);
 });
 
+
+
+
+// web.php في Laravel
+Route::get('/tts', function (Illuminate\Http\Request $r) {
+    $text = urlencode($r->query('text', 'مرحبا'));
+    $url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q={$text}&tl=ar";
+    $ctx = stream_context_create(['http' => ['header' => "User-Agent: stagefright/1.2\r\n"]]);
+    return response()->stream(function () use ($url, $ctx) {
+        echo file_get_contents($url, false, $ctx);
+    }, 200, ['Content-Type' => 'audio/mpeg']);
+});

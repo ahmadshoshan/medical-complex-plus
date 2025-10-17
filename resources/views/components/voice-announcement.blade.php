@@ -203,9 +203,11 @@
                     const bellSound = new Audio('/sounds/alert.wav'); // تأكد من المسار داخل مجلد public
                     // دالة لتشغيل نداء المريض
                     function playCall() {
-                        const audio = new Audio(
-                            `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
-                        );
+                        // const audio = new Audio(
+                        //     `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
+                        // );
+                              const audio = new Audio(`/tts?text=${encodeURIComponent(message)}`);
+                                audio.play();
                         audio.play().catch(err => console.error("⚠️ خطأ في تشغيل الصوت:", err));
                     }
 
@@ -221,7 +223,7 @@
                                     // تشغيل الجرس مرة تانية قبل النداء التاني
                                     // bellSound.play();
                                    playCall();
-                                }, 5500);
+                                }, 6000);
                             };
                         })
                         .catch(err => console.error("⚠️ خطأ في تشغيل الجرس:", err));
