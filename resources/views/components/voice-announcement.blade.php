@@ -42,21 +42,21 @@
 
 
 <script>
-window.onload = function() {
-  // حدد منتصف الشاشة
-  const x = window.innerWidth / 2;
-  const y = window.innerHeight / 2;
+    window.onload = function() {
+        // حدد منتصف الشاشة
+        const x = window.innerWidth / 2;
+        const y = window.innerHeight / 2;
 
-  // اعمل Click event صناعي
-  const ev = new MouseEvent("click", {
-    bubbles: true,
-    cancelable: true,
-    clientX: x,
-    clientY: y
-  });
+        // اعمل Click event صناعي
+        const ev = new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+            clientX: x,
+            clientY: y
+        });
 
-  document.body.dispatchEvent(ev);
-};
+        document.body.dispatchEvent(ev);
+    };
 </script>
 
 
@@ -197,74 +197,118 @@ window.onload = function() {
                 // تأخير بسيط لضمان جاهزية الأصوات
                 setTimeout(() => {
 
-                    const message =
-                        `الحالة رقم ${e.patientNumber}' ${e.doctorName}'
-                    تتوجه إلى عيادة رقم ${e.roomNumber}
+                    const message = `الحالة رقم ${e.patientNumber} ${e.doctorName} تتوجه إلى عيادة رقم ${e.roomNumber}`;
 
-                    `;
-                    const message1 =
-                        `الحالة رقم ${e.patientNumber}
-                    تتوجه إلى عيادة رقم ${e.roomNumber}
-                      عيادة ${e.doctorSpecialty}
-                        دكتر${e.doctorName}
-                    `;
+                    // 🔔 تشغيل تنبيه صوتي من الجهاز بصيغة wev
+                    const bellSound = new Audio('/sounds/alert.wav'); // تأكد من المسار داخل مجلد public
+                    // دالة لتشغيل نداء المريض
+                    function playCall() {
+                        const audio = new Audio(
+                            `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
+                        );
+                        audio.play().catch(err => console.error("⚠️ خطأ في تشغيل الصوت:", err));
+                    }
+
+                    // تشغيل الجرس أولاً
+                    bellSound.play()
+                        .then(() => {
+                            // بعد انتهاء الجرس نبدأ أول نداء
+                            bellSound.onended = () => {
+                                playCall();
+
+                                // ⏳ بعد النداء الأول، ننتظر 5 ثواني ونعيد النداء
+                                setTimeout(() => {
+                                    // تشغيل الجرس مرة تانية قبل النداء التاني
+                                    // bellSound.play();
+                                   playCall();
+                                }, 5500);
+                            };
+                        })
+                        .catch(err => console.error("⚠️ خطأ في تشغيل الجرس:", err));
+
+                    // const message =
+                    //     `الحالة رقم ${e.patientNumber}  ${e.doctorName}
+                    // تتوجه إلى عيادة رقم ${e.roomNumber}
+
+                    // `;
+
+
+                    // if (navigator.onLine) {
+                    //     console.log("🌐 متصل بالإنترنت، تشغيل الصوت الثاني...");
+                    //     const audio = new Audio(
+                    //         `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
+                    //     );
+                    //     audio.play().catch(err => console.error("⚠️ خطأ في تشغيل الصوت:", err));
+                    // } else {
+                    //     console.warn("🚫 لا يوجد اتصال بالإنترنت، تم تجاهل تشغيل الصوت الثاني");
+                    // }
+
+
+                    // const message1 =
+                    //     `الحالة رقم ${e.patientNumber}
+                    // تتوجه إلى عيادة رقم ${e.roomNumber}
+                    //   عيادة ${e.doctorSpecialty}
+                    //     دكتر${e.doctorName}
+                    // `;
+
+
                     // الطريقة 1: محاولة استخدام Web Speech API
                     // if ('speechSynthesis' in window) {
-                    if ('speechSynthesis' in window) {
-                        const utterance = new SpeechSynthesisUtterance(message);
-                        utterance.lang = 'ar-EG';
-                        utterance.rate = 1;
-                        utterance.pitch = 1;
-                        utterance.volume = 1;
+                    // if ('speechSynthesis' in window) {
+                    //     const utterance = new SpeechSynthesisUtterance(message);
+                    //     utterance.lang = 'ar-EG';
+                    //     utterance.rate = 1;
+                    //     utterance.pitch = 1;
+                    //     utterance.volume = 1;
 
-                        // ابحث عن صوت عربي
-                        const arabicVoice = voices.find(v =>
-                            v.lang.includes('ar') ||
-                            v.name.includes('Arabic') ||
-                            v.name.includes('Google العربية')
-                        );
+                    //     // ابحث عن صوت عربي
+                    //     const arabicVoice = voices.find(v =>
+                    //         v.lang.includes('ar') ||
+                    //         v.name.includes('Arabic') ||
+                    //         v.name.includes('Google العربية')
+                    //     );
 
-                        if (arabicVoice) {
-                            utterance.voice = arabicVoice;
-                            console.log('🔊 سيتم استخدام الصوت:', arabicVoice.name);
-                            
-                        } else {
-                            console.warn('⚠️ لم يتم العثور على صوت عربي، سيتم استخدام الصوت الافتراضي');
-                        }
+                    //     if (arabicVoice) {
+                    //         utterance.voice = arabicVoice;
+                    //         console.log('🔊 سيتم استخدام الصوت:', arabicVoice.name);
 
-                    
+                    //     } else {
+                    //         console.warn('⚠️ لم يتم العثور على صوت عربي، سيتم استخدام الصوت الافتراضي');
+                    //     }
 
-                        window.speechSynthesis.speak(utterance);
-                        // بعد انتهاء الصوت الأول، نشغل الصوت الثاني
-                        utterance.onend = function() {
-                            console.log("✅ انتهى الصوت الأول");
 
-                            if (navigator.onLine) {
-                                console.log("🌐 متصل بالإنترنت، تشغيل الصوت الثاني...");
-                                const audio = new Audio(
-                                    `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
-                                );
-                                audio.play().catch(err => console.error("⚠️ خطأ في تشغيل الصوت:", err));
-                            } else {
-                                console.warn("🚫 لا يوجد اتصال بالإنترنت، تم تجاهل تشغيل الصوت الثاني");
-                            }
-                        };
-    // تأكد من عدم تشغيل أكثر من صوت
-                        if (window.speechSynthesis.speaking) {
-                            window.speechSynthesis.cancel();
-                        }
 
-                        // تشغيل الصوت الأول
-                        window.speechSynthesis.speak(utterance);
-                    }
-                    // الطريقة 2: استخدم Google TTS كنسخة احتياطية
-                    else {
-                        const audio = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=32&tl=ar&client=tw-ob`);
-                        audio.play().catch(err => {
-                            console.error('فشل تشغيل الصوت:', err);
-                            alert('فشل تشغيل الصوت: ' + message);
-                        });
-                    }
+                    //     window.speechSynthesis.speak(utterance);
+                    //     // بعد انتهاء الصوت الأول، نشغل الصوت الثاني
+                    //     utterance.onend = function() {
+                    //         console.log("✅ انتهى الصوت الأول");
+
+                    //         if (navigator.onLine) {
+                    //             console.log("🌐 متصل بالإنترنت، تشغيل الصوت الثاني...");
+                    //             const audio = new Audio(
+                    //                 `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
+                    //             );
+                    //             audio.play().catch(err => console.error("⚠️ خطأ في تشغيل الصوت:", err));
+                    //         } else {
+                    //             console.warn("🚫 لا يوجد اتصال بالإنترنت، تم تجاهل تشغيل الصوت الثاني");
+                    //         }
+                    //     };
+                    //     // تأكد من عدم تشغيل أكثر من صوت
+                    //     if (window.speechSynthesis.speaking) {
+                    //         window.speechSynthesis.cancel();
+                    //     }
+
+                    //     // تشغيل الصوت الأول
+                    //     window.speechSynthesis.speak(utterance);
+                    // }
+                    // // الطريقة 2: استخدم Google TTS كنسخة احتياطية
+                    // else {
+                    //     console.log("🌐 متصل بالإنترنت، تشغيل الصوت الثاني...");
+                    //     const audio = new Audio(
+                    //         `https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&text=${encodeURIComponent(message)}&textlen=${message.length}&tl=ar&client=tw-ob`
+                    //     );
+                    //     audio.play().catch(err => console.error("⚠️ خطأ في تشغيل الصوت:", err));
+                    // }
                 }, 500);
             });
     });

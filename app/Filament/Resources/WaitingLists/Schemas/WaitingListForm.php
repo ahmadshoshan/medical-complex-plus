@@ -112,7 +112,7 @@ class WaitingListForm
                     ->label('الغرفة')
                     ->relationship('room', 'room_number')
                     ->preload()
-                    ->searchable()
+
                     ->required()
                     ->disabled() // لا يمكن تغييره يدويًا
                     ->dehydrated(true) // لحفظ القيمة حتى لو كان الحقل معطلًا

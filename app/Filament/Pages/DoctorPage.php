@@ -35,7 +35,7 @@ class DoctorPage extends Page
     // {
 
 
-    //     $user = Auth::user();
+    //     $user = Auth::user();s
 
     //     // لو مفيش مستخدم مسجل دخول
     //     if (! $user) {
