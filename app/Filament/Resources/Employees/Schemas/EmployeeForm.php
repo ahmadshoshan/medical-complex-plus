@@ -28,7 +28,7 @@ class EmployeeForm
                     ->default(null),
                 Select::make('user_id')
                     ->label('اسم المستخدم ')
-
+                    ->preload()
                     ->relationship(
                         name: 'user',
                         titleAttribute: 'name',

@@ -25,7 +25,7 @@ class DoctorForm
                     ->required(),
                 Select::make('user_id')
                     ->label('اسم المستخدم')
-
+ ->preload()
                     ->relationship(
                         name: 'user',
                         titleAttribute: 'username',

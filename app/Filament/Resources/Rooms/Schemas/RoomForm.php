@@ -16,9 +16,10 @@ class RoomForm
                TextInput::make('room_number')
                     ->label('رقم الغرفة')
                     ->numeric()
+                    
                     ->required(),
               Select::make('doctor_id')
-                    ->label('الطبيب')
+                    ->label('الطبيب') ->preload()
                     ->relationship('doctor','name')
                     ->searchable(),
 

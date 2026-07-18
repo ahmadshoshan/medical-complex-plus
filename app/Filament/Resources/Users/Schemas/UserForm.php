@@ -48,10 +48,10 @@ class UserForm
                     ])
                     ->schema([
                         Select::make('permissions')
-                            ->multiple()
+                            ->multiple() ->preload()
                             ->relationship('permissions', 'name'),
                         Select::make('rols')
-                            ->multiple()
+                            ->multiple() ->preload()
                             ->relationship('roles', 'name'),
                         Select::make('home_page')
                             ->label('الصفحة الافتراضية')

@@ -17,6 +17,11 @@ class WaitingListsTable extends Component
     {
         return $table
             ->defaultSort('created_at', 'desc') // ✅ الأفضل ترتيب حسب الأحدث (أو doctor.name حسب رغبتك)
+              // ✅ أضف هذا السطر لتحميل العلاقات مسبقاً وتسريع الجدول بشكل هائل
+     // ✅ هذا هو السطر الصحيح والآمن 100%
+->modifyQueryUsing(fn (\Illuminate\Database\Eloquent\Builder $query) => 
+    $query->with(['patient', 'doctor', 'room', 'revenue'])
+)
             ->columns([
                 TextColumn::make('queue_number')
                     ->label('رقم')
@@ -31,7 +36,7 @@ class WaitingListsTable extends Component
                         };
                     }),
 
-                TextColumn::make('patient.name')
+                    TextColumn::make('patient.name')
                     ->label('الاسم')
                     ->sortable()
                     ->searchable()
