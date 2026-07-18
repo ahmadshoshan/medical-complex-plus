@@ -70,12 +70,25 @@ class MakeAdminUser extends Command
 // composer require milon/barcode
 //composer require simplesoftwareio/simple-qrcode
 
+// # 1. تهيئة مجلد Git جديد
+// git init
 
+// # 2. إضافة جميع الملفات للتتبع
+// git add .
+
+// # 3. عمل أول حفظ (Commit)
+// git commit -m "initial commit: نقل المشروع وإعداد Laragon"
+
+// # 4. ربط المشروع بمستودع GitHub الخاص بك (تأكد من صحة الرابط)
+// git remote add origin https://github.com/ahmadshoshan/medical-complex-plus.git
+
+// # 5. رفع الملفات إلى GitHub
+// git push -u origin main
 
 // git status
 // git add .
 
-// git commit -m "اضافه مشتريات ومبيعات وفواتير والعهد"
+// git commit -m "اضافه الغنايمة   "
 // ارفع التعديلات للـ GitHub:
 // git push origin main
 
