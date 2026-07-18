@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Events;
+
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+
+class ValueChanged implements ShouldBroadcast  // ✅ تم الإضافة هنا
+{
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $value;
+
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * Get the channels the event should broadcast on.
+     */
+    public function broadcastOn(): array
+    {
+        return [
+            new Channel('Channel_all'),
+        ];
+    }
+}

@@ -1,0 +1,33 @@
+# 1. تثبيت حزم PHP (إذا لم تكن مثبتة)
+composer install
+
+# 2. تثبيت حزم الواجهة الأمامية (Vite, Tailwind, etc.)
+npm install
+
+# 3. التأكد من وجود ملف .env (إذا لم يكن موجوداً)
+# في PowerShell:
+if (!(Test-Path .env)) { Copy-Item .env.example .env }
+
+# 4. توليد مفتاح التطبيق
+php artisan key:generate
+
+# 5. تشغيل التهجير لإنشاء الجداول (بما فيها جداول Spatie)
+php artisan migrate
+
+# 6. مزامنة الصلاحيات وإنشاء دور super_admin (الأمر الذي صححناه)
+php artisan filament:sync-role
+
+# 7. إنشاء حساب الأدمن الخاص بك
+php artisan filament:userx
+
+
+npm run dev
+
+
+
+
+
+الخطوة 2: تعديل ملف php.ini
+افتح المسار الذي ظهر لك في الخطوة السابقة باستخدام "المفكرة" (Notepad) أو أي محرر نصوص (مثل VS Code).
+اضغط على Ctrl + F للبحث عن الكلمة التالية:
+   ;extension=intl  احذف علامة الفاصلة المنقوطة (;) من بداية السطر ليصبح 
