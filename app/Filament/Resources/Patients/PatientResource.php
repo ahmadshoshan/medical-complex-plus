@@ -60,7 +60,6 @@ class PatientResource extends Resource
               MedicalHistoryRelationManager::class, // ✅ أضف هذا السطر
         ];
     }
-
    
 
     public static function getPages(): array

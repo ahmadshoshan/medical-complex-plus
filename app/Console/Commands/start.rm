@@ -31,3 +31,59 @@ npm run dev
 افتح المسار الذي ظهر لك في الخطوة السابقة باستخدام "المفكرة" (Notepad) أو أي محرر نصوص (مثل VS Code).
 اضغط على Ctrl + F للبحث عن الكلمة التالية:
    ;extension=intl  احذف علامة الفاصلة المنقوطة (;) من بداية السطر ليصبح 
+
+
+
+
+
+   
+🔥 الحل الشامل: ملف VBS واحد يفعل كل شيء
+إذا أردت ملفاً واحداً يشغل Laragon + الأوامر في الخلفية تلقائياً:
+إنشاء ملف Start_All_Background.vbs:
+
+==============================
+Set WshShell = CreateObject("WScript.Shell")
+
+' تشغيل Laragon في الخلفية
+WshShell.Run """C:\laragon\laragon.exe""", 0, False
+
+' انتظار 5 ثواني حتى يبدأ Laragon
+WScript.Sleep 5000
+
+' تشغيل أوامر المشروع في الخلفية
+WshShell.Run "cmd /c cd /d C:\laragon\www\medical_complex_plus && npm run dev", 0, False
+
+Set WshShell = Nothing
+
+===========================
+
+
+
+
+إضافة هذا الملف إلى Startup:
+اضغط Win + R واكتب: shell:startup
+انسخ ملف Start_All_Background.vbs والصقه داخل مجلد Startup
+الآن عند تشغيل ويندوز، سيعمل كل شيء تلقائياً في الخلفية
+
+
+
+
+# عرض جميع عمليات Node
+Get-Process node
+
+# عرض جميع عمليات PHP
+Get-Process php
+
+# عرض المنافذ المستخدمة
+netstat -ano | findstr "5173 8010 8000"
+
+
+
+# إيقاف Vite
+taskkill /F /IM node.exe
+
+# إيقاف PHP
+taskkill /F /IM php.exe
+
+
+

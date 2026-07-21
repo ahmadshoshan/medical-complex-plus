@@ -4,15 +4,16 @@ namespace App\Filament\Widgets;
 
 use App\Models\Expense;
 use App\Models\Revenue;
+use Auth;
+use Cache;
 use Carbon\Carbon;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
 
 class StatsOverview extends BaseWidget
-
 {
-    public function getColumns(): int | array
+    public function getColumns(): int|array
     {
         return 3;
     }
@@ -72,44 +73,50 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
-        return [
-            Stat::make('اجمالي الايرادات', number_format($this->revenue))
-                ->descriptionIcon('heroicon-o-currency-dollar', 'before')
-                ->color('success')
-                ->dehydrated()
-                ->chart([$this->revenue, 3, 4, 5, 3, 5, 3]),
+        return Cache::remember('dashboard_stats_' . Auth::id(), 60, function () {
 
-            Stat::make('اجمالي المصروفات', number_format($this->expense))
-                ->color('danger')
-                ->dehydrated()
-                ->chart([$this->expense, 3, 4, 5, 3, 5, 3]),
+            return [
 
 
+                Stat::make('اجمالي الايرادات', number_format($this->revenue))
+                    ->descriptionIcon('heroicon-o-currency-dollar', 'before')
+                    ->color('success')
+                    ->dehydrated()
+                    ->chart([$this->revenue, 3, 4, 5, 3, 5, 3]),
 
-
-            Stat::make('الصافي', number_format($this->revenue - $this->expense))
-
-                ->color($this->revenue - $this->expense >= 0 ? 'success' : 'danger')
-                ->chart([$this->expense, 3, 4, 5, 3, 5, 3]),
+                Stat::make('اجمالي المصروفات', number_format($this->expense))
+                    ->color('danger')
+                    ->dehydrated()
+                    ->chart([$this->expense, 3, 4, 5, 3, 5, 3]),
 
 
 
 
-            Stat::make("اجمالي ايرادات {$this->monthName}", number_format($this->revenueMonth))
-                ->icon('heroicon-o-banknotes')
-                ->color('success')
-                ->chart(array_values($this->revenueChart)),
+                Stat::make('الصافي', number_format($this->revenue - $this->expense))
 
-            Stat::make("اجمالي مصروفات {$this->monthName}", number_format($this->expenseMonth))
-                ->icon('heroicon-o-credit-card')
-                ->color('danger')
-                ->chart(array_values($this->expenseChart)),
+                    ->color($this->revenue - $this->expense >= 0 ? 'success' : 'danger')
+                    ->chart([$this->expense, 3, 4, 5, 3, 5, 3]),
 
-            Stat::make("صافي {$this->monthName}", number_format($this->revenueMonth - $this->expenseMonth))
-                ->icon('heroicon-o-calculator')
-                ->color($this->revenue - $this->expense >= 0 ? 'success' : 'danger')
-                ->chart(array_values($this->revenueChart) ?: [0]),
 
-        ];
+
+
+                Stat::make("اجمالي ايرادات {$this->monthName}", number_format($this->revenueMonth))
+                    ->icon('heroicon-o-banknotes')
+                    ->color('success')
+                    ->chart(array_values($this->revenueChart)),
+
+                Stat::make("اجمالي مصروفات {$this->monthName}", number_format($this->expenseMonth))
+                    ->icon('heroicon-o-credit-card')
+                    ->color('danger')
+                    ->chart(array_values($this->expenseChart)),
+
+                Stat::make("صافي {$this->monthName}", number_format($this->revenueMonth - $this->expenseMonth))
+                    ->icon('heroicon-o-calculator')
+                    ->color($this->revenue - $this->expense >= 0 ? 'success' : 'danger')
+                    ->chart(array_values($this->revenueChart) ?: [0]),
+
+            ];
+        });
+
     }
 }
