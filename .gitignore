@@ -22,8 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-package.json
-composer.json
 # تجاهل مجلد Piper وملفات النماذج الصوتية الكبيرة
 piper/
 *.onnx
