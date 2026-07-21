@@ -30,9 +30,9 @@ class AppointmentDoctorsTable
                     ->colors(['primary']),
 
                 TextColumn::make('start_time')->label('من')
-                    ->time(),
+                    ->time('h:i A'),
                 TextColumn::make('end_time')->label('الي')
-                    ->time(),
+                    ->time('h:i A'),
                 // TextColumn::make('created_at')
                 //     ->dateTime()
                 //     ->sortable()

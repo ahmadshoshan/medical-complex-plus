@@ -59,20 +59,23 @@ class StatsDoctor extends BaseWidget
 
                 if ($doctor->is_active) {
                     if ($currentPatient) {
-                        $description = "🔵د. {$doctor->name} يستقبل الحالة رقم {$currentPatient->queue_number}";
+                        $description = "🔵د. {$doctor->name} -      -يستقبل الحالة رقم {$currentPatient->queue_number}";
                         $color = 'info'; // 🔵 أزرق للإشارة إلى النشاط الحالي
                         $icon = 'heroicon-m-user-circle';
+                         $specialty = "🔵".$doctor->specialty;
                     } else {
-                        $description = "🟢د. {$doctor->name} - متاح";
+                        $description = "🟢د. {$doctor->name} ";
                         $color = 'success'; // 🟢 أخضر للإتاحة العادية
                         $icon = 'heroicon-m-check-circle';
+                        $specialty = "🟢".$doctor->specialty;
                     }
                 } else {
-                    $description = "🟡د. {$doctor->name} - غير متاح";
+                    $description = "🟡د. {$doctor->name} ";
                     $color = 'warning'; // 🟡 أصفر
                     $icon = 'heroicon-m-eye-slash';
+                    $specialty ="🟡 غير متاح";
                 }
-                $specialty = $doctor->specialty;
+                
             }
 
 

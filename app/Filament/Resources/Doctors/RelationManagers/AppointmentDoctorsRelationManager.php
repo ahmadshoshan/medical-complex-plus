@@ -83,12 +83,10 @@ class AppointmentDoctorsRelationManager extends RelationManager
                     ->badge()
                     ->colors(['primary']),
 
-                TextColumn::make('StartTime12')->label('من')
-
-                    ->sortable(),
-                TextColumn::make('EndTime12')->label('الي')
-
-                    ->sortable(),
+                TextColumn::make('start_time')->label('من')
+                    ->time('h:i A'),
+                TextColumn::make('end_time')->label('الي')
+                    ->time('h:i A'),
 
                 TextColumn::make('created_at')
                     ->dateTime()

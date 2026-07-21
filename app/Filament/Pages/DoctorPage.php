@@ -4,8 +4,10 @@ namespace App\Filament\Pages;
 
 
 use App\Filament\Widgets\DoctorListControlWidget;
+use App\Models\User;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Auth;
@@ -113,6 +115,13 @@ class DoctorPage extends Page
                 ->action(function () use ($doctor) {
                     if ($doctor) {
                         $doctor->update(['is_active' => ! $doctor->is_active]);
+
+                        Notification::make()
+                            ->title($doctor->is_active ? 'تم تفعيل العيادة' : 'تم إيقاف العيادة')
+                            ->body($doctor->name . ' - الحالة الآن: ' . ($doctor->is_active ? 'مفعلة' : 'متوقفة'))
+                            ->success()
+                            ->sendToDatabase(User::all(), true);
+                            //  ->sendToDatabase(Auth::user(), true);
                     }
                 }),
 
@@ -130,6 +139,13 @@ class DoctorPage extends Page
                         $doctor->update([
                             'allow_receptionist_call' => ! $doctor->allow_receptionist_call
                         ]);
+
+                        Notification::make()
+                            ->title($doctor->allow_receptionist_call ? 'تم السماح لموظف الاستقبال' : 'تم منع موظف الاستقبال')
+                            ->body($doctor->name . ' - السماح الآن: ' . ($doctor->allow_receptionist_call ? 'مسموح' : 'غير مسموح'))
+                            ->success()
+                            ->sendToDatabase(User::all(), true);
+                            //  ->sendToDatabase(Auth::user(), true);
                     }
                 }),
 

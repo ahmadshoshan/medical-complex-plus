@@ -26,7 +26,8 @@ class ItemResource extends Resource
     protected static ?string $navigationLabel = 'الأصناف';
     protected static ?string $pluralModelLabel = 'الأصناف';
     protected static ?string $modelLabel = 'صنف';
-    // protected static ?string $navigationGroup = 'المستلزمات الطبية';
+   
+      protected static string|\UnitEnum|null $navigationGroup = 'المستلزمات الطبية ';
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema

@@ -46,10 +46,25 @@ class DoctorListControlWidget extends BaseWidget
 
 
                 TextColumn::make('queue_number')->label('رقم ')->sortable(),
-                TextColumn::make('patient.name')->label('الاسم')->sortable()->searchable(),
-                TextColumn::make('patient.phone')->label('الهاتف')->sortable()->searchable(),
+                TextColumn::make('patient.name')
+                ->label('الاسم')->sortable()
+                    // ✅ هذا السطر هو السحر: يظهر رقم الهاتف أسفل الحالة
+    ->description(fn ($record) => '📞 ' . ($record->patient?->phone ?? 'غير متوفر'), position: 'below')
+    
+    ->sortable()
+                ->searchable(),
+                // TextColumn::make('patient.phone')->label('الهاتف')->sortable()->searchable(),
+                 TextColumn::make('notes')
+                    ->label('نوع الزيارة')
+                    ->sortable()
+                    ->searchable()
+                    ->getStateUsing(fn($record) => $record->notes ?? 'غير محدد')
+                    ->badge()
+                    ->color(fn($state) => $state === 'غير محدد' ? 'gray' : 'primary'),
+
                 TextColumn::make('doctor.name')->label('الطبيب')->sortable(),
-                TextColumn::make('room.room_number')->label('الغرفة'),
+               
+                // TextColumn::make('room.room_number')->label('الغرفة'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('الحالة')
                     ->formatStateUsing(fn(string $state): string => match ($state) {

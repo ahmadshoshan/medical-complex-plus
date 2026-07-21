@@ -18,6 +18,7 @@ class RolesForm
                     ->label('name')
                     ->required(),
                 Select::make('permissions')
+                ->preload()
                     ->multiple()
                     ->relationship('permissions', 'name')
             ]);

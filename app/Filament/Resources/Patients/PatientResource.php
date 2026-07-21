@@ -5,6 +5,8 @@ namespace App\Filament\Resources\Patients;
 use App\Filament\Resources\Patients\Pages\CreatePatient;
 use App\Filament\Resources\Patients\Pages\EditPatient;
 use App\Filament\Resources\Patients\Pages\ListPatients;
+use App\Filament\Resources\Patients\Pages\ViewPatients;
+use App\Filament\Resources\Patients\Schemas\PatienInfolist;
 use App\Filament\Resources\Patients\Schemas\PatientForm;
 use App\Filament\Resources\Patients\Tables\PatientsTable;
 use App\Models\Patient;
@@ -47,7 +49,10 @@ class PatientResource extends Resource
     {
         return PatientsTable::configure($table);
     }
-
+    public static function infolist(Schema $schema): Schema
+    {
+        return PatienInfolist::configure($schema);
+    }
     public static function getRelations(): array
     {
         return [
@@ -61,6 +66,7 @@ class PatientResource extends Resource
             'index' => ListPatients::route('/'),
             'create' => CreatePatient::route('/create'),
             'edit' => EditPatient::route('/{record}/edit'),
+            'view' => ViewPatients::route('/{record}'),
         ];
     }
 }

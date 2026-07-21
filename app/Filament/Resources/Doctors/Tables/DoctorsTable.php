@@ -3,11 +3,15 @@
 namespace App\Filament\Resources\Doctors\Tables;
 
 use App\Models\Doctor;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class DoctorsTable
@@ -19,7 +23,7 @@ class DoctorsTable
 
             ->defaultPaginationPageOption(10) // ✅ عرض 10 بس في الصفحة
 
-         
+
 
             ->columns([
 
@@ -45,8 +49,25 @@ class DoctorsTable
                 TextColumn::make('specialty')->label('التخصص')
                     ->searchable(),
                 TextColumn::make('phone')->label('الهاتف'),
-                IconColumn::make('is_active')->label('نشط')
-                    ->boolean(),
+                //   Toggle::make('is_active')->label('نشط')
+                //     ->default(true)
+                //     ->required(),
+
+
+
+
+             
+                ToggleColumn::make('is_active')
+                ->label('نشط'),
+
+
+
+
+
+
+
+
+
                 TextColumn::make('bio')->label('نبذة تعريفية')
                     ->toggleable(isToggledHiddenByDefault: true),
                 //     TextColumn::make('created_at')
@@ -63,7 +84,7 @@ class DoctorsTable
             ])
             ->recordActions([
                 EditAction::make(),
-            ])
+  ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),

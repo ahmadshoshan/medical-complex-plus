@@ -15,7 +15,8 @@ class Doctor extends Model
         'phone',
 
         'bio',
-        'is_active','allow_receptionist_call'
+        'is_active',
+        'allow_receptionist_call'
     ];
 
 

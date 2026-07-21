@@ -17,7 +17,7 @@ class DoctorForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
-        
+
 
             ->components([
                 TextInput::make('name')
@@ -25,7 +25,7 @@ class DoctorForm
                     ->required(),
                 Select::make('user_id')
                     ->label('اسم المستخدم')
- ->preload()
+                    ->preload()
                     ->relationship(
                         name: 'user',
                         titleAttribute: 'username',

@@ -85,7 +85,7 @@ class TV extends Page
 
             WaitingListWidget::class,
             //   ImagesSliderWidget::class, // ✅ إضافة السلايدر::class,
-            // GallerySlider::class, // ✅ إضافة السلايدر::class,
+            GallerySlider::class, // ✅ إضافة السلايدر::class,
             GallerySlider2::class, // ✅ إضافة السلايدر::class,
 
 
