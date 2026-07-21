@@ -18,4 +18,19 @@ class Patient extends Model
 
 
     ];
+
+public function waitingLists()
+{
+    return $this->hasMany(WaitingList::class);
+}
+
+public function revenues()
+{
+    return $this->hasManyThrough(Revenue::class, WaitingList::class);
+}
+
+
+
+
+
 }

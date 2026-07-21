@@ -6,6 +6,7 @@ use App\Filament\Resources\Patients\Pages\CreatePatient;
 use App\Filament\Resources\Patients\Pages\EditPatient;
 use App\Filament\Resources\Patients\Pages\ListPatients;
 use App\Filament\Resources\Patients\Pages\ViewPatients;
+use App\Filament\Resources\Patients\RelationManagers\MedicalHistoryRelationManager;
 use App\Filament\Resources\Patients\Schemas\PatienInfolist;
 use App\Filament\Resources\Patients\Schemas\PatientForm;
 use App\Filament\Resources\Patients\Tables\PatientsTable;
@@ -23,7 +24,7 @@ class PatientResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserPlus;
 
     protected static ?int $navigationSort = 1;
-        protected static string|\UnitEnum|null $navigationGroup = 'ادارة الحالات';
+    protected static string|\UnitEnum|null $navigationGroup = 'ادارة الحالات';
     // تسمية نموذج المورد
     protected static ?string $modelLabel = ' حالة';
     // تسمية نموذج المورد بصيغة الجمع
@@ -56,9 +57,11 @@ class PatientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+              MedicalHistoryRelationManager::class, // ✅ أضف هذا السطر
         ];
     }
+
+   
 
     public static function getPages(): array
     {

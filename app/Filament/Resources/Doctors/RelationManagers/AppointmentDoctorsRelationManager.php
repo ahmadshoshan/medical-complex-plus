@@ -22,7 +22,8 @@ use Filament\Tables\Table;
 class AppointmentDoctorsRelationManager extends RelationManager
 {
     protected static string $relationship = 'appointment_doctors';
-    protected static ?string $navigationLabel = 'المواعيد';
+  
+    protected static ?string $title = 'المواعيد';
  // ✅ أضف هذه الدالة لتغيير الترجمة
 //   public static function getLabel(): string
 //     {
