@@ -11,7 +11,7 @@ class Item extends Model
 
     protected $fillable = [
         'name',
-        // 'category_id',
+         'description',
         'unit',
         'barcode',
         'purchase_price',
@@ -19,6 +19,14 @@ class Item extends Model
         'quantity',
         'min_quantity',
         'expiry_date',
+         'stock_quantity', // جديد
+    'cost_price', // جديد
+    'selling_price', // جديد
+    'min_stock', // جديد
+    'barcode', // جديد
+    'unit', // جديد
+    'category', // جديد
+    
     ];
 
     /**
@@ -42,4 +50,10 @@ class Item extends Model
     {
         return $this->hasMany(MedicalSaleItem::class);
     }
+
+
+
+
+
+    
 }

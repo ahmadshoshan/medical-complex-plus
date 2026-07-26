@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Items\Schemas;
 
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -13,48 +13,58 @@ class ItemForm
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->label('اسم الصنف')
-                    ->required(),
+                Section::make('بيانات الصنف')
+                    ->schema([
+                        TextInput::make('name')
+                            ->label('اسم الصنف')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('barcode')
+                            ->label('الباركود')
+                            ->unique(ignoreRecord: true)
+                            ->maxLength(50),
+                        TextInput::make('category')
+                            ->label('الفئة')
+                            ->maxLength(100),
+                        TextInput::make('unit')
+                            ->label('الوحدة')
+                            ->default('قطعة')
+                            ->maxLength(50),
+                        Textarea::make('description')
+                            ->label('الوصف')
+                            ->columnSpanFull(),
+                    ])->columns(2),
 
-            //    Select::make('category_id')
-            //         ->label('التصنيف')
-            //         ->relationship('category', 'name')
-            //         ->searchable()
-            //         ->preload()
-            //         ->required(),
+                Section::make('أسعار الصنف')
+                    ->schema([
+                        TextInput::make('cost_price')
+                            ->label('سعر التكلفة')
+                            ->numeric()
+                            ->default(0)
+                            ->prefix('ج.م')
+                            ->minValue(0),
+                        TextInput::make('selling_price')
+                            ->label('سعر البيع')
+                            ->numeric()
+                            ->default(0)
+                            ->prefix('ج.م')
+                            ->minValue(0),
+                    ])->columns(2),
 
-               TextInput::make('unit')
-                    ->label('الوحدة (علبة - شريط - أمبولة)')
-                    ->required(),
-
-               TextInput::make('barcode')
-                    ->label('الباركود')
-                    ->unique(ignoreRecord: true),
-
-               TextInput::make('purchase_price')
-                    ->label('سعر الشراء')
-                    ->numeric()
-                    ->required(),
-
-               TextInput::make('sale_price')
-                    ->label('سعر البيع')
-                    ->numeric()
-                    ->required(),
-
-               TextInput::make('quantity')
-                    ->label('الكمية المتاحة')
-                    ->numeric()
-                    ->default(0),
-
-               TextInput::make('min_quantity')
-                    ->label('حد إعادة الطلب')
-                    ->numeric()
-                    ->default(5),
-
-               DatePicker::make('expiry_date')
-                    ->label('تاريخ الصلاحية')
-                    ->nullable(),
+                Section::make('إعدادات المخزون')
+                    ->schema([
+                        TextInput::make('stock_quantity')
+                            ->label('الكمية الحالية')
+                            ->numeric()
+                            ->default(0)
+                            ->minValue(0),
+                        TextInput::make('min_stock')
+                            ->label('الحد الأدنى للمخزون')
+                            ->numeric()
+                            ->default(10)
+                            ->minValue(0)
+                            ->helperText('سيتم التنبيه عند وصول المخزون لهذا الحد'),
+                    ])->columns(2),
             ]);
     }
 }
