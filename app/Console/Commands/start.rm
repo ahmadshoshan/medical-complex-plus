@@ -86,4 +86,8 @@ taskkill /F /IM node.exe
 taskkill /F /IM php.exe
 
 
+آخر Migration نجحت ثم تريد التراجع عنها، استخدم:
 
+php artisan migrate:rollback --step=1
+يحذف الجداول. ستحتاج نسخة احتياطية من قاعدة البيانات لاسترجاعها.
+php artisan migrate:fresh
