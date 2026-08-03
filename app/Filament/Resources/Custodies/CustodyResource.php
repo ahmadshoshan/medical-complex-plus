@@ -23,7 +23,7 @@ class CustodyResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'item';
-    protected static string|\UnitEnum|null $navigationGroup = 'ادارةالحسابات ';
+    protected static string|\UnitEnum|null $navigationGroup ='ادارة الحسابات';
 
     protected static ?string $label = 'عهدة';
     protected static ?string $pluralLabel = 'العهدة';

@@ -22,7 +22,7 @@ class RevenueResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'amount';
 protected static ?int $navigationSort = 1;
-    protected static string|\UnitEnum|null $navigationGroup = 'ادارةالحسابات ';
+    protected static string|\UnitEnum|null $navigationGroup ='ادارة الحسابات';
     // تسمية نموذج المورد
     protected static ?string $modelLabel = ' ايراد';
     // تسمية نموذج المورد بصيغة الجمع

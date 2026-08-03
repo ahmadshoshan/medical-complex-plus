@@ -23,7 +23,7 @@ class DonationResource extends Resource
     protected static ?string $recordTitleAttribute = 'donor_name';
 
     protected static ?int $navigationSort = 5;
-    protected static string|\UnitEnum|null $navigationGroup = 'ادارةالحسابات ';
+    protected static string|\UnitEnum|null $navigationGroup = 'ادارة الحسابات';
     // تسمية نموذج المورد
     protected static ?string $modelLabel = 'تبرع';
     // تسمية نموذج المورد بصيغة الجمع

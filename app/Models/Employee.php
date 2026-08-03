@@ -15,11 +15,11 @@ class Employee extends Model
         'phone',
         'position',
         'hire_date',
+        'salary',
         'user_id',
         'is_active',
-
-
     ];
+
     /**
      * The attributes that should be cast.
      *
@@ -31,5 +31,15 @@ class Employee extends Model
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class);
+    }
+
+    public function salaryPayments()
+    {
+        return $this->hasMany(\App\Models\SalaryPayment::class);
+    }
+
+    public function advances()
+    {
+        return $this->hasMany(\App\Models\EmployeeAdvance::class);
     }
 }

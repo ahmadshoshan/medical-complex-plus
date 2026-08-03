@@ -36,7 +36,7 @@ class EmployeeForm
                         // modifyQueryUsing: fn (Builder $query) => $query->whereDoesntHave('doctor')
                     )
                     ->searchable()
-                    // ->required()
+                    ->required()
                     ->createOptionForm([ // لإضافة مستخدم جديد مباشرة من هنا
                         TextInput::make('name')->required()->label('اسم'),
                         TextInput::make('email')->email()->required()->unique(User::class, 'email')->label('البريد الاكتروني'),
